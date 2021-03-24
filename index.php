@@ -1,5 +1,6 @@
 <?php
 	require "connection.php";
+		echo $error = NULL;
 	if(isset($_POST['submit'])){
 		$id = $_POST['id'];
 		$name = $_POST['fulltname'];
@@ -7,9 +8,21 @@
 		$fname = $_POST['fname'];
 		$versity = $_POST['versity'];
 		$dept = $_POST['department'];
+		$p1 = $_POST['password'];
+		$p2 = $_POST['cpassword'];
 
-		$sql = "INSERT INTO student_info (id,name, email,fname,versityname,dept)VALUES
-			('$id','$name','$email','$fname','$versity' ,'$dept')";
+        $emailq = "select *from student_info where email = '$email' ";
+		$query = mysqli_query($conn, $emailq);
+		$emailcount =mysqli_num_rows($query);
+		// if($emailcount > 0)
+		//   echo "Email is exist.";
+		if($p1 != $p2 or $emailcount > 0){
+			echo "Password is not matched or email is already exit.";
+		}
+		else {
+		     $sql = "INSERT INTO student_info (id, name, email,fname,versityname,dept, p1)VALUES
+			('$id','$name','$email','$fname','$versity' ,'$dept', '$p1')";
+		
 		#mysql_select_db($dbname);
 		$insertValues = mysqli_query($conn,$sql);
 		if(!$insertValues)
@@ -19,7 +32,8 @@
 		else
 			echo("Entered data successfully\n");
 	}
-	
+
+	}
       ?>
 
 <html>
@@ -30,14 +44,14 @@
 	<div class="container">
 		<form action=" " method="post">
 			<div class="row">
-				<h1>Registration Form</h1>
+				<h1>Student Registration Form</h1>
 			</div>
 			<div class="row">
 				<div class="col-25">
 					<label for="fname">Full Name</label>
 				</div>
 				<div class="col-75">
-					<input type="text"name="fulltname" placeholder="Your name..">
+					<input type="text" name="fulltname" placeholder="Your name..">
 				</div>
 			</div>
 			<div class="row">
@@ -98,6 +112,22 @@
 			</div>
 			<div class="row">
 				<div class="col-25">
+					<label for="lname">Password</label>
+				</div>
+				<div class="col-75">
+					<input type="text" name="password" placeholder="Enter your passord.">
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-25">
+					<label for="lname">Confirm Password</label>
+				</div>
+				<div class="col-75">
+					<input type="text" name="cpassword" placeholder="Enter your Confirm passord.">
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-25">
 					<label for="skills">Skills</label>
 				</div>
 				<div class="col-75">
@@ -118,5 +148,10 @@
 			</div>
 		</form>
 	</div>
+	<center>
+		<?php
+		echo $error;
+		?>
+	</center>
 </body>
 </html>
