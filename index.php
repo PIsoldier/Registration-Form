@@ -19,15 +19,8 @@
 		else
 			echo("Entered data successfully\n");
 	}
-	// $query = "select *from student_info";
-	// $result = mysql_query($query);
-	// ?>
-	// <!DOCKTYPE html>
-	// <html>
-	// <title>
-	// <head> fetch data </head>
-	// </title>
-	// </html>
+	
+      ?>
 
 <html>
 <head>
