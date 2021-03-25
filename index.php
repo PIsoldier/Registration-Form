@@ -14,10 +14,12 @@
         $emailq = "select *from student_info where email = '$email' ";
 		$query = mysqli_query($conn, $emailq);
 		$emailcount =mysqli_num_rows($query);
-		// if($emailcount > 0)
-		//   echo "Email is exist.";
-		if($p1 != $p2 or $emailcount > 0){
-			echo "Password is not matched or email is already exit.";
+		if($p1 != $p2){
+			echo "Password is not matched.";
+		}
+		if($emailcount > 0)
+		{
+			echo "This email is already exist.";
 		}
 		else {
 		     $sql = "INSERT INTO student_info (id, name, email,fname,versityname,dept, p1)VALUES
@@ -115,7 +117,7 @@
 					<label for="lname">Password</label>
 				</div>
 				<div class="col-75">
-					<input type="text" name="password" placeholder="Enter your passord.">
+					<input type="password" name="password" placeholder="Enter your passord.">
 				</div>
 			</div>
 			<div class="row">
@@ -123,7 +125,7 @@
 					<label for="lname">Confirm Password</label>
 				</div>
 				<div class="col-75">
-					<input type="text" name="cpassword" placeholder="Enter your Confirm passord.">
+					<input type="password" name="cpassword" placeholder="Enter your Confirm passord.">
 				</div>
 			</div>
 			<div class="row">
